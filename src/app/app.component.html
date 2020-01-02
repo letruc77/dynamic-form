@@ -1,0 +1,488 @@
+<p-accordion [multiple]="true">
+  <form [formGroup]="formGroup" (submit)="submitForm()">
+    <button pButton type="submit" label="Success" class="ui-button-rounded ui-button-success"></button>
+    <p-accordionTab header="Providers" [selected]="true">
+      <ng-template ngFor let-input [ngForOf]="providerFormGeneration">
+        <ng-container [ngSwitch]="input.controlType">
+          <ng-template [ngSwitchCase]="'text'">
+            <div class="ui-g">
+              <div class="ui-g-4">
+                <label [for]="input.controlName"> {{input.controlNameDisplay | titlecase}}: </label>
+              </div>
+              <div class="ui-g-5">
+                <input [formControlName]="input.controlName" [type]="input.controlType" [name]="input.controlName"
+                  [id]="input.controlName" [value]="" />
+                <div class="error"
+                  *ngIf="formGroup.get(input.controlName).invalid && (formGroup.get(input.controlName).dirty || formGroup.get(input.controlName).touched)">
+                  <div *ngIf="formGroup.get(input.controlName).errors.required">{{input.controlNameDisplay | titlecase}}
+                    required</div>
+                  <div
+                    *ngIf="formGroup.get(input.controlName).errors?.pattern && !formGroup.get(input.controlName).errors.minlength">
+                    {{input.controlNameDisplay | titlecase}} must type number</div>
+                  <div *ngIf="formGroup.get(input.controlName).errors.minlength">Minimum length is ...</div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template [ngSwitchCase]="'password'">
+            <div class="ui-g">
+              <div class="ui-g-4">
+                <label [for]="input.controlName"> {{input.controlNameDisplay | titlecase}}: </label>
+              </div>
+              <div class="ui-g-5">
+                <input [formControlName]="input.controlName" [type]="input.controlType" [name]="input.controlName"
+                  [id]="input.controlName" [value]="" />
+                <div class="error"
+                  *ngIf="formGroup.get(input.controlName).invalid && (formGroup.get(input.controlName).dirty || formGroup.get(input.controlName).touched)">
+                  <div *ngIf="formGroup.get(input.controlName).errors.required">{{input.controlNameDisplay | titlecase}}
+                    required</div>
+                  <div
+                    *ngIf="formGroup.get(input.controlName).errors?.pattern && !formGroup.get(input.controlName).errors.minlength">
+                    {{input.controlNameDisplay | titlecase}} must type number</div>
+                  <div *ngIf="formGroup.get(input.controlName).errors.minlength">Minimum length is ...</div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template [ngSwitchCase]="'number'">
+            <div class="ui-g">
+              <div class="ui-g-4">
+                <label [for]="input.controlName"> {{input.controlNameDisplay | titlecase}} : </label>
+              </div>
+              <div class="ui-g-5">
+                <input [formControlName]="input.controlName" [type]="input.controlType" [name]="input.controlName"
+                  [id]="input.controlName" [value]="0" [min]="0" />
+                <div class="error"
+                  *ngIf="formGroup.get(input.controlName).invalid && (formGroup.get(input.controlName).dirty || formGroup.get(input.controlName).touched)">
+                  <div *ngIf="formGroup.get(input.controlName).errors.required">{{input.controlNameDisplay | titlecase}}
+                    required</div>
+                  <div
+                    *ngIf="formGroup.get(input.controlName).errors?.pattern && !formGroup.get(input.controlName).errors.minlength">
+                    {{input.controlNameDisplay | titlecase}} must type number</div>
+                  <div *ngIf="formGroup.get(input.controlName).errors.minlength">Minimum length is ...</div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template [ngSwitchCase]="'comboBox'">
+            <div class="ui-g">
+              <div class="ui-g-4">
+                <label [for]="input.controlName"> {{input.controlNameDisplay | titlecase}} : </label>
+              </div>
+              <div class="ui-g-5">
+                <select [formControlName]="input.controlName" [name]="input.controlName" [id]="input.controlName">
+                  <option value="">Select</option>
+                  <option *ngFor="let option of input.options" [value]="option">{{option}}</option>
+                </select>
+                <div class="error"
+                  *ngIf="formGroup.get(input.controlName).invalid && (formGroup.get(input.controlName).dirty || formGroup.get(input.controlName).touched)">
+                  <div *ngIf="formGroup.get(input.controlName).errors.required">{{input.controlNameDisplay | titlecase}}
+                    required</div>
+                  <div
+                    *ngIf="formGroup.get(input.controlName).errors?.pattern && !formGroup.get(input.controlName).errors.minlength">
+                    {{input.controlNameDisplay | titlecase}} must type number</div>
+                  <div *ngIf="formGroup.get(input.controlName).errors.minlength">Minimum length is ...</div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template [ngSwitchCase]="'radio'">
+            <div class="ui-g" *ngFor="let option of input.options">
+              <div class="ui-g-4">
+                <label [for]="input.controlName"> {{input.controlNameDisplay | titlecase}}:</label>
+              </div>
+              <div class="ui-g-5">
+                <input [formControlName]="input.controlName" [type]="input.controlType" [name]="input.controlName"
+                  [value]="option" [checked]="option">
+                <label [for]="input.controlName"> {{option}}</label>
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template [ngSwitchCase]="'checkbox'">
+            <div class="ui-g" *ngFor="let option of input.options">
+              <div class="ui-g-4">
+                <label [for]="input.controlName"> {{input.controlNameDisplay | titlecase}}:</label>
+              </div>
+              <div class="ui-g-5">
+                <input [formControlName]="input.controlName" [type]="input.controlType" [name]="input.controlName"
+                  [value]="option" [checked]="option">
+                <label [for]="input.controlName"> {{option}}</label>
+              </div>
+            </div>
+          </ng-template>
+
+        </ng-container>
+      </ng-template>
+    </p-accordionTab>
+    <p-accordionTab header="Networks">
+      <ng-template ngFor let-input [ngForOf]="networkFormGeneration">
+        <ng-container [ngSwitch]="input.isTitleGroup">
+          <ng-template [ngSwitchCase]="true">
+            <div class="ui-g">
+              <div class="ui-g-9">
+                <b>{{input.controlName}}</b> <br />
+                <hr />
+              </div>
+            </div>
+          </ng-template>
+          <ng-template [ngSwitchCase]="false">
+            <ng-container [ngSwitch]="input.controlType">
+              <ng-template [ngSwitchCase]="'text'">
+                <div class="ui-g">
+                  <div class="ui-g-4">
+                    <label [for]="input.controlName"> {{input.controlNameDisplay | titlecase}}: </label>
+                  </div>
+                  <div class="ui-g-5">
+                    <input [formControlName]="input.controlName" [type]="input.controlType" [name]="input.controlName"
+                      [id]="input.controlName" [value]="" />
+                    <div class="error"
+                      *ngIf="formGroup.get(input.controlName).invalid && (formGroup.get(input.controlName).dirty || formGroup.get(input.controlName).touched)">
+                      <div *ngIf="formGroup.get(input.controlName).errors.required">
+                        {{input.controlNameDisplay | titlecase}}
+                        required</div>
+                      <div
+                        *ngIf="formGroup.get(input.controlName).errors?.pattern && !formGroup.get(input.controlName).errors.minlength">
+                        {{input.controlNameDisplay | titlecase}} must type number</div>
+                      <div *ngIf="formGroup.get(input.controlName).errors.minlength">Minimum length is ...</div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template [ngSwitchCase]="'password'">
+                <div class="ui-g">
+                  <div class="ui-g-4">
+                    <label [for]="input.controlName"> {{input.controlNameDisplay | titlecase}}: </label>
+                  </div>
+                  <div class="ui-g-5">
+                    <input [formControlName]="input.controlName" [type]="input.controlType" [name]="input.controlName"
+                      [id]="input.controlName" [value]="" />
+                    <div class="error"
+                      *ngIf="formGroup.get(input.controlName).invalid && (formGroup.get(input.controlName).dirty || formGroup.get(input.controlName).touched)">
+                      <div *ngIf="formGroup.get(input.controlName).errors.required">
+                        {{input.controlNameDisplay | titlecase}}
+                        required</div>
+                      <div
+                        *ngIf="formGroup.get(input.controlName).errors?.pattern && !formGroup.get(input.controlName).errors.minlength">
+                        {{input.controlNameDisplay | titlecase}} must type number</div>
+                      <div *ngIf="formGroup.get(input.controlName).errors.minlength">Minimum length is ...</div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+
+              <ng-template [ngSwitchCase]="'number'">
+                <div class="ui-g">
+                  <div class="ui-g-4">
+                    <label [for]="input.controlName"> {{input.controlNameDisplay | titlecase}}: </label>
+                  </div>
+                  <div class="ui-g-5">
+                    <input [formControlName]="input.controlName" [type]="input.controlType" [name]="input.controlName"
+                      [id]="input.controlName" [value]="0" [min]="0" />
+                    <div class="error"
+                      *ngIf="formGroup.get(input.controlName).invalid && (formGroup.get(input.controlName).dirty || formGroup.get(input.controlName).touched)">
+                      <div *ngIf="formGroup.get(input.controlName).errors.required">
+                        {{input.controlNameDisplay | titlecase}}
+                        required</div>
+                      <div
+                        *ngIf="formGroup.get(input.controlName).errors?.pattern && !formGroup.get(input.controlName).errors.minlength">
+                        {{input.controlNameDisplay | titlecase}} must type number</div>
+                      <div *ngIf="formGroup.get(input.controlName).errors.minlength">Minimum length is ...</div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+
+              <ng-template [ngSwitchCase]="'comboBox'">
+                <div class="ui-g">
+                  <div class="ui-g-4">
+                    <label [for]="input.controlName"> {{input.controlNameDisplay | titlecase}}: </label>
+                  </div>
+                  <div class="ui-g-5">
+                    <select [formControlName]="input.controlName" [name]="input.controlName" [id]="input.controlName">
+                      <option value="">Select</option>
+                      <option *ngFor="let option of input.options" [value]="option">{{option}}</option>
+                    </select>
+                    <div class="error"
+                      *ngIf="formGroup.get(input.controlName).invalid && (formGroup.get(input.controlName).dirty || formGroup.get(input.controlName).touched)">
+                      <div *ngIf="formGroup.get(input.controlName).errors.required">
+                        {{input.controlNameDisplay | titlecase}}
+                        required</div>
+                      <div
+                        *ngIf="formGroup.get(input.controlName).errors?.pattern && !formGroup.get(input.controlName).errors.minlength">
+                        {{input.controlNameDisplay | titlecase}} must type number</div>
+                      <div *ngIf="formGroup.get(input.controlName).errors.minlength">Minimum length is ...</div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+
+              <ng-template [ngSwitchCase]="'radio'">
+                <div class="ui-g" *ngFor="let option of input.options">
+                  <div class="ui-g-4">
+                    <label [for]="input.controlName"> {{input.controlNameDisplay | titlecase}}:</label>
+                  </div>
+                  <div class="ui-g-5">
+                    <input [formControlName]="input.controlName" [type]="input.controlType" [name]="input.controlName"
+                      [value]="option" [checked]="option">
+                    <label [for]="input.controlName"> {{option}}</label>
+                  </div>
+                </div>
+              </ng-template>
+
+              <ng-template [ngSwitchCase]="'checkbox'">
+                <div class="ui-g" *ngFor="let option of input.options">
+                  <div class="ui-g-4">
+                    <label [for]="input.controlName"> {{input.controlName}}</label>
+                  </div>
+                  <div class="ui-g-5">
+                    <input [formControlName]="input.controlName" [type]="input.controlType" [name]="input.controlName"
+                      [value]="option" [checked]="option">
+                    <label [for]="input.controlName"> {{option}}</label>
+                  </div>
+                </div>
+              </ng-template>
+
+            </ng-container>
+          </ng-template>
+        </ng-container>
+      </ng-template>
+    </p-accordionTab>
+    <!-- <p-accordionTab header="Form III">
+              <ng-template ngFor let-input [ngForOf]="vnfcFlavorFormGeneration">
+                <ng-container [ngSwitch]="input.controlType">
+                  <ng-template [ngSwitchCase]="'text'">
+                    <div class="ui-g">
+                      <div class="ui-g-4">
+                        <label [for]="input.controlName"> {{input.controlNameDisplay | titlecase}}: </label>
+                      </div>
+                      <div class="ui-g-5">
+                        <input [formControlName]="input.controlName" [type]="input.controlType" [name]="input.controlName"
+                        [id]="input.controlName" [value]=""/>
+                        <div class="error" *ngIf="formGroup.get(input.controlName).invalid && (formGroup.get(input.controlName).dirty || formGroup.get(input.controlName).touched)">
+                          <div *ngIf="formGroup.get(input.controlName).errors.required">{{input.controlNameDisplay | titlecase}} required</div>
+                          <div *ngIf="formGroup.get(input.controlName).errors?.pattern && !formGroup.get(input.controlName).errors.minlength">{{input.controlNameDisplay | titlecase}} must type number</div>
+                          <div *ngIf="formGroup.get(input.controlName).errors.minlength">Minimum length is ...</div>
+                        </div>
+                      </div>
+                    </div>
+                    </ng-template>
+
+                    <ng-template [ngSwitchCase]="'password'">
+                        <div class="ui-g">
+                          <div class="ui-g-4">
+                            <label [for]="input.controlName"> {{input.controlNameDisplay | titlecase}}: </label>
+                          </div>
+                          <div class="ui-g-5">
+                            <input [formControlName]="input.controlName" [type]="input.controlType" [name]="input.controlName"
+                        [id]="input.controlName" [value]=""/>
+                        <div class="error" *ngIf="formGroup.get(input.controlName).invalid && (formGroup.get(input.controlName).dirty || formGroup.get(input.controlName).touched)">
+                          <div *ngIf="formGroup.get(input.controlName).errors.required">{{input.controlNameDisplay | titlecase}} required</div>
+                          <div *ngIf="formGroup.get(input.controlName).errors?.pattern && !formGroup.get(input.controlName).errors.minlength">{{input.controlNameDisplay | titlecase}} must type number</div>
+                          <div *ngIf="formGroup.get(input.controlName).errors.minlength">Minimum length is ...</div>
+                        </div>
+                          </div>
+                        </div>
+                    </ng-template>
+
+                    <ng-template [ngSwitchCase]="'number'">
+                      <div class="ui-g">
+                        <div class="ui-g-4">
+                          <label [for]="input.controlName"> {{input.controlNameDisplay | titlecase}}: </label>
+                        </div>
+                        <div class="ui-g-5">
+                          <input [formControlName]="input.controlName" [type]="input.controlType" [name]="input.controlName"
+                      [id]="input.controlName" [value]="0" [min]="0" />
+                      <div class="error" *ngIf="formGroup.get(input.controlName).invalid && (formGroup.get(input.controlName).dirty || formGroup.get(input.controlName).touched)">
+                        <div *ngIf="formGroup.get(input.controlName).errors.required">{{input.controlNameDisplay | titlecase}} required</div>
+                        <div *ngIf="formGroup.get(input.controlName).errors?.pattern && !formGroup.get(input.controlName).errors.minlength">{{input.controlNameDisplay | titlecase}} must type number</div>
+                        <div *ngIf="formGroup.get(input.controlName).errors.minlength">Minimum length is ...</div>
+                      </div>
+                        </div>
+                      </div>
+                  </ng-template>
+
+                  <ng-template [ngSwitchCase]="'comboBox'">
+                    <div class="ui-g">
+                      <div class="ui-g-4">
+                        <label [for]="input.controlName"> {{input.controlNameDisplay | titlecase}}: </label>
+                      </div>
+                      <div class="ui-g-5">
+                          <select [formControlName]="input.controlName" [name]="input.controlName" [id]="input.controlName">
+                            <option value="">Select</option>
+                            <option *ngFor="let option of input.options" [value]="option.value">{{option.optionName}}</option>
+                        </select>
+                    <div class="error" *ngIf="formGroup.get(input.controlName).invalid && (formGroup.get(input.controlName).dirty || formGroup.get(input.controlName).touched)">
+                      <div *ngIf="formGroup.get(input.controlName).errors.required">{{input.controlNameDisplay | titlecase}} required</div>
+                      <div *ngIf="formGroup.get(input.controlName).errors?.pattern && !formGroup.get(input.controlName).errors.minlength">{{input.controlNameDisplay | titlecase}} must type number</div>
+                      <div *ngIf="formGroup.get(input.controlName).errors.minlength">Minimum length is ...</div>
+                    </div>
+                      </div>
+                    </div>
+                </ng-template>
+
+                    <ng-template [ngSwitchCase]="'radio'">
+                      <div class="ui-g" *ngFor="let option of input.options">
+                        <div class="ui-g-4">
+                          <label [for]="input.controlName"> {{input.controlNameDisplay | titlecase}}:</label>
+                        </div>
+                        <div class="ui-g-5">
+                          <input [formControlName]="input.controlName" [type]="input.controlType" [name]="input.controlName"
+                          [value]="option.value" [checked]="option.checked">
+                        <label [for]="input.controlName"> {{option.optionName}}</label>
+                        </div>
+                      </div>
+                    </ng-template>
+
+                    <ng-template [ngSwitchCase]="'checkbox'">
+                      <div class="ui-g" *ngFor="let option of input.options">
+                        <div class="ui-g-4">
+                          <label [for]="input.controlName"> {{input.controlNameDisplay | titlecase}}:</label>
+                        </div>
+                        <div class="ui-g-5">
+                          <input [formControlName]="input.controlName" [type]="input.controlType" [name]="input.controlName"
+                          [value]="option.value" [checked]="option.checked">
+                        <label [for]="input.controlName"> {{option.optionName}}</label>
+                        </div>
+                      </div>
+                    </ng-template>
+
+                  </ng-container>
+              </ng-template>
+          </p-accordionTab> -->
+    <p-accordionTab header="VNFC Groups">
+      <ng-template ngFor let-input [ngForOf]="vnfcGroupFormGeneration">
+        <ng-container [ngSwitch]="input.controlType">
+          <ng-template [ngSwitchCase]="'text'">
+            <div class="ui-g">
+              <div class="ui-g-4">
+                <label [for]="input.controlName"> {{input.controlNameDisplay | titlecase}}: </label>
+              </div>
+              <div class="ui-g-5">
+                <input [formControlName]="input.controlName" [type]="input.controlType" [name]="input.controlName"
+                  [id]="input.controlName" [value]="" />
+                <div class="error"
+                  *ngIf="formGroup.get(input.controlName).invalid && (formGroup.get(input.controlName).dirty || formGroup.get(input.controlName).touched)">
+                  <div *ngIf="formGroup.get(input.controlName).errors.required">{{input.controlNameDisplay | titlecase}}
+                    required</div>
+                  <div
+                    *ngIf="formGroup.get(input.controlName).errors?.pattern && !formGroup.get(input.controlName).errors.minlength">
+                    {{input.controlNameDisplay | titlecase}} must type number</div>
+                  <div *ngIf="formGroup.get(input.controlName).errors.minlength">Minimum length is ...</div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template [ngSwitchCase]="'password'">
+            <div class="ui-g">
+              <div class="ui-g-4">
+                <label [for]="input.controlName"> {{input.controlNameDisplay | titlecase}}: </label>
+              </div>
+              <div class="ui-g-5">
+                <input [formControlName]="input.controlName" [type]="input.controlType" [name]="input.controlName"
+                  [id]="input.controlName" [value]="" />
+                <div class="error"
+                  *ngIf="formGroup.get(input.controlName).invalid && (formGroup.get(input.controlName).dirty || formGroup.get(input.controlName).touched)">
+                  <div *ngIf="formGroup.get(input.controlName).errors.required">{{input.controlNameDisplay | titlecase}}
+                    required</div>
+                  <div
+                    *ngIf="formGroup.get(input.controlName).errors?.pattern && !formGroup.get(input.controlName).errors.minlength">
+                    {{input.controlNameDisplay | titlecase}} must type number</div>
+                  <div *ngIf="formGroup.get(input.controlName).errors.minlength">Minimum length is ...</div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template [ngSwitchCase]="'number'">
+            <div class="ui-g">
+              <div class="ui-g-4">
+                <label [for]="input.controlName"> {{input.controlNameDisplay | titlecase}}: </label>
+              </div>
+              <div class="ui-g-5">
+                <input [formControlName]="input.controlName" [type]="input.controlType" [name]="input.controlName"
+                  [id]="input.controlName" [value]="0" [min]="0" />
+                <div class="error"
+                  *ngIf="formGroup.get(input.controlName).invalid && (formGroup.get(input.controlName).dirty || formGroup.get(input.controlName).touched)">
+                  <div *ngIf="formGroup.get(input.controlName).errors.required">{{input.controlNameDisplay | titlecase}}
+                    required</div>
+                  <div
+                    *ngIf="formGroup.get(input.controlName).errors?.pattern && !formGroup.get(input.controlName).errors.minlength">
+                    {{input.controlNameDisplay | titlecase}} must type number</div>
+                  <div *ngIf="formGroup.get(input.controlName).errors.minlength">Minimum length is ...</div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template [ngSwitchCase]="'comboBox'">
+            <div class="ui-g">
+              <div class="ui-g-4">
+                <label [for]="input.controlName"> {{input.controlNameDisplay | titlecase}}: </label>
+              </div>
+              <div class="ui-g-5">
+                <select [formControlName]="input.controlName" [name]="input.controlName" [id]="input.controlName">
+                  <option value="">Select</option>
+                  <option *ngFor="let option of input.options" [value]="option">{{option}}</option>
+                </select>
+                <div class="error"
+                  *ngIf="formGroup.get(input.controlName).invalid && (formGroup.get(input.controlName).dirty || formGroup.get(input.controlName).touched)">
+                  <div *ngIf="formGroup.get(input.controlName).errors.required">{{input.controlNameDisplay | titlecase}}
+                    required</div>
+                  <div
+                    *ngIf="formGroup.get(input.controlName).errors?.pattern && !formGroup.get(input.controlName).errors.minlength">
+                    {{input.controlNameDisplay | titlecase}} must type number</div>
+                  <div *ngIf="formGroup.get(input.controlName).errors.minlength">Minimum length is ...</div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template [ngSwitchCase]="'radio'">
+            <div class="ui-g" *ngFor="let option of input.options">
+              <div class="ui-g-4">
+                <label [for]="input.controlName"> {{input.controlNameDisplay | titlecase}}:</label>
+              </div>
+              <div class="ui-g-5">
+                <input [formControlName]="input.controlName" [type]="input.controlType" [name]="input.controlName"
+                  [value]="option" [checked]="option">
+                <label [for]="input.controlName"> {{option}}</label>
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template [ngSwitchCase]="'checkbox'">
+            <div class="ui-g" *ngFor="let option of input.options">
+              <div class="ui-g-4">
+                <label [for]="input.controlName"> {{input.controlNameDisplay | titlecase}}</label>
+              </div>
+              <div class="ui-g-5">
+                <input [formControlName]="input.controlName" [type]="input.controlType" [name]="input.controlName"
+                  [value]="option" [checked]="option">
+                <label [for]="input.controlName"> {{option}}</label>
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template [ngSwitchCase]="'fileSelector'">
+            <div class="ui-g">
+              <div class="ui-g-4">
+                <label [for]="input.controlName"> {{input.controlNameDisplay | titlecase}}</label>
+              </div>
+              <div class="ui-g-5">
+                <p-fileUpload #fubauto mode="basic" name="demo[]" url="./upload.php" accept="image/*"
+                  maxFileSize="1000000" [auto]="true" chooseLabel="Browse" (onUpload)="onUpload($event)"></p-fileUpload>
+              </div>
+            </div>
+          </ng-template>
+        </ng-container>
+      </ng-template>
+    </p-accordionTab>
+  </form>
+</p-accordion>
+<router-outlet></router-outlet>
