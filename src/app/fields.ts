@@ -3,5 +3,5 @@ export interface Field {
   type: string;
   path: Array<string>;
   description: string;
-  options? : Array<string>;
+  options?: Array<string>;
 }
