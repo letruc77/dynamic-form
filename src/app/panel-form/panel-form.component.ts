@@ -8,16 +8,17 @@ import { FormGroup, FormArray } from '@angular/forms';
   styleUrls: ['./panel-form.component.scss']
 })
 export class PanelFormComponent implements OnInit {
+  @Input() parentForm: FormGroup;
   @Input() dataInput: modelDataForm[] = [];
   @Input() formArray: FormArray;
-  @Input() header: string;
   @Input() formArrayName: string;
+  @Input() header: string;
   selectPanel = false;
   uploadedFiles: any[] = [];
   constructor(private messageService: MessageService) { }
 
   ngOnInit() {
-    console.log(this.dataInput);
+    console.log('Data input : ', this.dataInput);
     if (this.header === 'Providers') {
       this.selectPanel = true;
     }

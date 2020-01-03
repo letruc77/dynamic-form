@@ -18,20 +18,19 @@ export class AppComponent implements OnInit {
   vnfcFlavorsTitle = 'VNFCFlavors';
   vnfcGroupsTitle = 'VNFCGroups';
 
-  providerArray: FormArray;
-  networkArray: FormArray;
-  vnfcFlavorArray: FormArray;
-  vnfcGroupArray: FormArray;
+  providersArray: FormArray;
+  networksArray: FormArray;
+  vnfcFlavorsArray: FormArray;
+  vnfcGroupsArray: FormArray;
 
   formProvidersArrayName = 'providers';
   formNetworksArrayName = 'networks';
   formVnfcFlavorsArrayName = 'vnfcFlavors';
   formVnfcGroupsArrayName = 'vnfcGroups';
-  
   formGeneration: any = {
     provider: [], network: [], vnfcFlavor: [], vnfcGroup: [],
   };
-  constructor() { }
+  constructor(private formBuilder: FormBuilder) { }
   ngOnInit() {
     const formArray: any = {
       provider: [], network: [], vnfcFlavor: [], vnfcGroup: [],
@@ -94,18 +93,17 @@ export class AppComponent implements OnInit {
           break;
       }
     });
-    this.providerArray = new FormArray(formArray.provider);
-    this.networkArray = new FormArray(formArray.network);
-    this.vnfcFlavorArray = new FormArray(formArray.vnfcFlavor);
-    this.vnfcGroupArray = new FormArray(formArray.vnfcGroup);
 
-    this.formGroup = new FormGroup({
-      providers: this.providerArray,
-      networks: this.networkArray,
-      vnfcFlavors: this.vnfcFlavorArray,
-      vnfcGroups: this.vnfcGroupArray
+    this.formGroup = this.formBuilder.group({
+      providers: new FormArray(formArray.provider),
+      networks: new FormArray(formArray.network),
+      vnfcFlavors: new FormArray(formArray.vnfcFlavor),
+      vnfcGroups: new FormArray(formArray.vnfcGroup)
     });
-    console.log(this.formGroup);
+    this.providersArray = this.formGroup.controls.providers as FormArray;
+    this.networksArray = this.formGroup.controls.networks as FormArray;
+    this.vnfcFlavorsArray = this.formGroup.controls.vnfcFlavors as FormArray;
+    this.vnfcGroupsArray = this.formGroup.controls.vnfcGroups as FormArray;
   }
   submitForm() {
     console.log(this.formGroup.value);
