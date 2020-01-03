@@ -1,17 +1,17 @@
 <p-accordion [multiple]="true">
-  <form [formGroup]="formGroup" novalidate (submit)="submitForm()">
-    <button pButton type="submit" label="Success" class="ui-button-rounded ui-button-success"></button>
+  <form [formGroup]="form" novalidate (submit)="submitForm()">
+      <button pButton type="submit" label="Success" class="ui-button-rounded ui-button-success"></button>
 
-      <app-panel-form [parentForm]="formGroup" [dataInput]="formGeneration.provider" [formArray]="providersArray" [formArrayName]="formProvidersArrayName" [header]="providersTitle">
+      <app-panel-form [parentForm]="form" [formGroup]="providersGroup" [dataInput]="formGeneration.provider"  [formGroupName]="formProvidersGroupName" [header]="providersTitle">
       </app-panel-form>
 
-      <app-panel-form [parentForm]="formGroup" [dataInput]="formGeneration.network"  [formArray]="networksArray" [formArrayName]="formNetworksArrayName" [header]="networksTitle">
+      <app-panel-form [parentForm]="form" [formGroup]="networksGroup" [dataInput]="formGeneration.network" [formGroupName]="formNetworksGroupName" [header]="networksTitle">
       </app-panel-form>
 
-      <app-panel-form [parentForm]="formGroup" [dataInput]="formGeneration.vnfcFlavor" [formArray]="vnfcFlavorsArray" [formArrayName]="formVnfcFlavorsArrayName" [header]="vnfcFlavorsTitle">
+      <app-panel-form [parentForm]="form" [formGroup]="vnfcFlavorsGroup" [dataInput]="formGeneration.vnfcFlavor" [formGroupName]="formVnfcFlavorsGroupName" [header]="vnfcFlavorsTitle">
       </app-panel-form>
       
-      <app-panel-form [parentForm]="formGroup" [dataInput]="formGeneration.vnfcGroup" [formArray]="vnfcGroupsArray" [formArrayName]="formVnfcGroupsArrayName" [header]="vnfcGroupsTitle">
+      <app-panel-form [parentForm]="form" [formGroup]="vnfcGroupsGroup" [dataInput]="formGeneration.vnfcGroup" [formGroupName]="formVnfcGroupsGroupName" [header]="vnfcGroupsTitle">
       </app-panel-form>
 
   </form>

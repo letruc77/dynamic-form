@@ -4,7 +4,6 @@ import { fields } from './moc-data';
 import { modelDataForm } from './modelDataForm';
 import { Field } from './fields';
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -12,27 +11,27 @@ import { Field } from './fields';
 })
 export class AppComponent implements OnInit {
 
-  formGroup: FormGroup;
+  form: FormGroup;
   providersTitle = 'Providers';
   networksTitle = 'Networks';
   vnfcFlavorsTitle = 'VNFCFlavors';
   vnfcGroupsTitle = 'VNFCGroups';
 
-  providersArray: FormArray;
-  networksArray: FormArray;
-  vnfcFlavorsArray: FormArray;
-  vnfcGroupsArray: FormArray;
+  providersGroup: FormGroup;
+  networksGroup: FormGroup;
+  vnfcFlavorsGroup: FormGroup;
+  vnfcGroupsGroup: FormGroup;
 
-  formProvidersArrayName = 'providers';
-  formNetworksArrayName = 'networks';
-  formVnfcFlavorsArrayName = 'vnfcFlavors';
-  formVnfcGroupsArrayName = 'vnfcGroups';
+  formProvidersGroupName = 'providers';
+  formNetworksGroupName = 'networks';
+  formVnfcFlavorsGroupName = 'vnfcFlavors';
+  formVnfcGroupsGroupName = 'vnfcGroups';
   formGeneration: any = {
     provider: [], network: [], vnfcFlavor: [], vnfcGroup: [],
   };
   constructor(private formBuilder: FormBuilder) { }
   ngOnInit() {
-    const formArray: any = {
+    const formGroup: any = {
       provider: [], network: [], vnfcFlavor: [], vnfcGroup: [],
     };
     const count = {
@@ -48,7 +47,7 @@ export class AppComponent implements OnInit {
       element.isTitleGroup = false;
       switch (field.path[0]) {
         case 'providers':
-          formArray.provider[controlName] = new FormControl('', Validators.required);
+          formGroup.provider[controlName] = new FormControl('', Validators.required);
           if ((count.provider > 1 && element.controlNameDisplay === 'name') || count.provider === 1) {
             const elementTitleGroup = new modelDataForm();
             elementTitleGroup.controlNameDisplay = 'Provider ' + count.provider;
@@ -59,7 +58,7 @@ export class AppComponent implements OnInit {
           this.formGeneration.provider.push(element);
           break;
         case 'networks':
-          formArray.network[controlName] = new FormControl('', Validators.required);
+          formGroup.network[controlName] = new FormControl('', Validators.required);
           if ((count.network > 1 && element.controlNameDisplay === 'name') || count.network === 1) {
             const elementTitleGroup = new modelDataForm();
             elementTitleGroup.controlNameDisplay = 'Network ' + count.network;
@@ -70,7 +69,7 @@ export class AppComponent implements OnInit {
           this.formGeneration.network.push(element);
           break;
         case 'vnfcFlavors':
-          formArray.vnfcFlavor[controlName] = new FormControl('', Validators.required);
+          formGroup.vnfcFlavor[controlName] = new FormControl('', Validators.required);
           if ((count.vnfcFlavor > 1 && element.controlNameDisplay === 'name') || count.vnfcFlavor === 1) {
             const elementTitleGroup = new modelDataForm();
             elementTitleGroup.controlNameDisplay = 'VnfcFlavor ' + count.vnfcFlavor;
@@ -81,7 +80,7 @@ export class AppComponent implements OnInit {
           this.formGeneration.vnfcFlavor.push(element);
           break;
         case 'vnfcGroups':
-          formArray.vnfcGroup[controlName] = new FormControl('', Validators.required);
+          formGroup.vnfcGroup[controlName] = new FormControl('', Validators.required);
           if ((count.vnfcGroup > 1 && element.controlNameDisplay === 'name') || count.vnfcGroup === 1) {
             const elementTitleGroup = new modelDataForm();
             elementTitleGroup.controlNameDisplay = 'VnfcGroup ' + count.vnfcGroup;
@@ -94,18 +93,18 @@ export class AppComponent implements OnInit {
       }
     });
 
-    this.formGroup = this.formBuilder.group({
-      providers: new FormArray(formArray.provider),
-      networks: new FormArray(formArray.network),
-      vnfcFlavors: new FormArray(formArray.vnfcFlavor),
-      vnfcGroups: new FormArray(formArray.vnfcGroup)
+    this.form = this.formBuilder.group({
+      providers: new FormGroup(formGroup.provider),
+      networks: new FormGroup(formGroup.network),
+      vnfcFlavors: new FormGroup(formGroup.vnfcFlavor),
+      vnfcGroups: new FormGroup(formGroup.vnfcGroup)
     });
-    this.providersArray = this.formGroup.controls.providers as FormArray;
-    this.networksArray = this.formGroup.controls.networks as FormArray;
-    this.vnfcFlavorsArray = this.formGroup.controls.vnfcFlavors as FormArray;
-    this.vnfcGroupsArray = this.formGroup.controls.vnfcGroups as FormArray;
+    this.providersGroup = this.form.controls.providers as FormGroup;
+    this.networksGroup = this.form.controls.networks as FormGroup;
+    this.vnfcFlavorsGroup = this.form.controls.vnfcFlavors as FormGroup;
+    this.vnfcGroupsGroup = this.form.controls.vnfcGroups as FormGroup;
   }
   submitForm() {
-    console.log(this.formGroup.value);
+    console.log(this.form.value);
   }
 }

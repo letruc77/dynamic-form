@@ -1,5 +1,5 @@
 <div [formGroup]="parentForm">
-    <div [formArrayName]="formArrayName">
+    <div [formGroupName]="formGroupName">
         <p-accordionTab header="{{header}}" [selected]="selectPanel">
             <ng-template ngFor let-input [ngForOf]="dataInput">
                 <ng-container [ngSwitch]="input.isTitleGroup">
@@ -23,14 +23,14 @@
                                         <input [formControlName]="input.controlName" [type]="input.controlType"
                                             [name]="input.controlName" [id]="input.controlName" [value]="" />
                                         <div class="error"
-                                            *ngIf="formArray.get(input.controlName).invalid && (formArray.get(input.controlName).dirty || formArray.get(input.controlName).touched)">
-                                            <div *ngIf="formArray.get(input.controlName).errors.required">
+                                            *ngIf="formGroup.get(input.controlName).invalid && (formGroup.get(input.controlName).dirty || formGroup.get(input.controlName).touched)">
+                                            <div *ngIf="formGroup.get(input.controlName).errors.required">
                                                 {{input.controlNameDisplay | titlecase}}
                                                 required</div>
                                             <div
-                                                *ngIf="formArray.get(input.controlName).errors?.pattern && !formArray.get(input.controlName).errors.minlength">
+                                                *ngIf="formGroup.get(input.controlName).errors?.pattern && !formGroup.get(input.controlName).errors.minlength">
                                                 {{input.controlNameDisplay | titlecase}} must type number</div>
-                                            <div *ngIf="formArray.get(input.controlName).errors.minlength">Minimum
+                                            <div *ngIf="formGroup.get(input.controlName).errors.minlength">Minimum
                                                 length is ...</div>
                                         </div>
                                     </div>
@@ -47,14 +47,14 @@
                                         <input [formControlName]="input.controlName" [type]="input.controlType"
                                             [name]="input.controlName" [id]="input.controlName" [value]="" />
                                         <div class="error"
-                                            *ngIf="formArray.get(input.controlName).invalid && (formArray.get(input.controlName).dirty || formArray.get(input.controlName).touched)">
-                                            <div *ngIf="formArray.get(input.controlName).errors.required">
+                                            *ngIf="formGroup.get(input.controlName).invalid && (formGroup.get(input.controlName).dirty || formGroup.get(input.controlName).touched)">
+                                            <div *ngIf="formGroup.get(input.controlName).errors.required">
                                                 {{input.controlNameDisplay | titlecase}}
                                                 required</div>
                                             <div
-                                                *ngIf="formArray.get(input.controlName).errors?.pattern && !formArray.get(input.controlName).errors.minlength">
+                                                *ngIf="formGroup.get(input.controlName).errors?.pattern && !formGroup.get(input.controlName).errors.minlength">
                                                 {{input.controlNameDisplay | titlecase}} must type number</div>
-                                            <div *ngIf="formArray.get(input.controlName).errors.minlength">Minimum
+                                            <div *ngIf="formGroup.get(input.controlName).errors.minlength">Minimum
                                                 length is ...</div>
                                         </div>
                                     </div>
@@ -71,14 +71,14 @@
                                         <input [formControlName]="input.controlName" [type]="input.controlType"
                                             [name]="input.controlName" [id]="input.controlName" [value]="0" [min]="0" />
                                         <div class="error"
-                                            *ngIf="formArray.get(input.controlName).invalid && (formArray.get(input.controlName).dirty || formArray.get(input.controlName).touched)">
-                                            <div *ngIf="formArray.get(input.controlName).errors.required">
+                                            *ngIf="formGroup.get(input.controlName).invalid && (formGroup.get(input.controlName).dirty || formGroup.get(input.controlName).touched)">
+                                            <div *ngIf="formGroup.get(input.controlName).errors.required">
                                                 {{input.controlNameDisplay | titlecase}}
                                                 required</div>
                                             <div
-                                                *ngIf="formArray.get(input.controlName).errors?.pattern && !formArray.get(input.controlName).errors.minlength">
+                                                *ngIf="formGroup.get(input.controlName).errors?.pattern && !formGroup.get(input.controlName).errors.minlength">
                                                 {{input.controlNameDisplay | titlecase}} must type number</div>
-                                            <div *ngIf="formArray.get(input.controlName).errors.minlength">Minimum
+                                            <div *ngIf="formGroup.get(input.controlName).errors.minlength">Minimum
                                                 length is ...</div>
                                         </div>
                                     </div>
@@ -99,14 +99,14 @@
                                             </option>
                                         </select>
                                         <div class="error"
-                                            *ngIf="formArray.get(input.controlName).invalid && (formArray.get(input.controlName).dirty || formArray.get(input.controlName).touched)">
-                                            <div *ngIf="formArray.get(input.controlName).errors.required">
+                                            *ngIf="formGroup.get(input.controlName).invalid && (formGroup.get(input.controlName).dirty || formGroup.get(input.controlName).touched)">
+                                            <div *ngIf="formGroup.get(input.controlName).errors.required">
                                                 {{input.controlNameDisplay | titlecase}}
                                                 required</div>
                                             <div
-                                                *ngIf="formArray.get(input.controlName).errors?.pattern && !formArray.get(input.controlName).errors.minlength">
+                                                *ngIf="formGroup.get(input.controlName).errors?.pattern && !formGroup.get(input.controlName).errors.minlength">
                                                 {{input.controlNameDisplay | titlecase}} must type number</div>
-                                            <div *ngIf="formArray.get(input.controlName).errors.minlength">Minimum
+                                            <div *ngIf="formGroup.get(input.controlName).errors.minlength">Minimum
                                                 length is ...</div>
                                         </div>
                                     </div>
